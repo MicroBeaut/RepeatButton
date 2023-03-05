@@ -1,0 +1,33 @@
+#######################################
+# Syntax Coloring Map For RepeatButton
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+RepeatButton    KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+buttonMode      KEYWORD2
+debounceDelay   KEYWORD2
+repeatDelay     KEYWORD2
+holdDelay       KEYWORD2
+repeatButton    KEYWORD2
+onKeyPressed    KEYWORD2
+onKeyReleased   KEYWORD2
+onKeyHolding    KEYWORD2
+isKeyPressed    KEYWORD2
+isKeyReleased   KEYWORD2
+isKeyHolding    KEYWORD2
+isRepeating     KEYWORD2
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+keyPress        LITERAL1
+keyRelease      LITERAL1
+keyHold         LITERAL1
+keyRepeat       LITERAL1
