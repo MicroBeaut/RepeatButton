@@ -60,7 +60,7 @@ class RepeatButton {
     void internalOnRepeating();
   public:
     RepeatButton();
-    void buttonMode(uint8_t pin, uint8_t mode = INPUT);
+    void buttonMode(uint8_t pin, uint8_t mode);
     void debounceDelay(uint16_t debounceDelay /*mS*/);
     void repeatDelay(uint16_t repeatDelay /*mS*/, uint16_t repeatRate/*mS*/);
     void holdDelay(uint16_t holdDelay /*mS*/);
