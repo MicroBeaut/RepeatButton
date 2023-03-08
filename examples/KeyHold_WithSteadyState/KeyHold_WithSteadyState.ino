@@ -1,37 +1,33 @@
 /*
-  RepeatButton_KeyRelease.ino
+  KeyHold_WithSteadyState.ino
   Created:  4-Mar-2023
   Author:   MicroBeaut
 */
 
 /*
-  The KeyRelease event occurs when released a key.
+  The KeyHold event occurs when holding a key.
 */
 
 #include "RepeatButton.h"
 
 #define buttonPin 2                 // Define the button input pin.
 
-RepeatButton button;                // Decalre the RepeatButton object
+const uint16_t holdDelay = 3000;    // Set Hold Time 3000 milliseconds
 
-void OnKeyReleased(ButtonEvents e); // Declare the OnKeyReleased Callback Function
+RepeatButton button;                // Decalre the RepeatButton object
 
 void setup() {
   Serial.begin(115200);
   button.buttonMode(buttonPin, INPUT_PULLUP); // Set the button mode
-  button.onKeyReleased(OnKeyReleased);        // Configure the callback function event on the key released
+  button.holdDelay(holdDelay);                // Set the Hold delay
   pinMode(LED_BUILTIN, OUTPUT);               // Set the LED_BUILTIN mode
 }
 
 void loop() {
   button.repeatButton();                      // Executing the Repeat button function
-  if (button.isKeyReleased()) {
+  if (button.isKeyHolding(true)) {            // Steady State Hoding Key
     digitalWrite(LED_BUILTIN, HIGH);          // Turned LED ON
   } else {
     digitalWrite(LED_BUILTIN, LOW);           // Turned LED OFF
   }
-}
-
-void OnKeyReleased(ButtonEvents e) {
-  Serial.println("Event on Key Released");    // Print message event on key Released
 }

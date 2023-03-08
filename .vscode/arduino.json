@@ -1,0 +1,4 @@
+{
+    "board": "arduino:avr:uno",
+    "sketch": "examples\\KeyRepeat_WithSteadyState\\KeyRepeat_WithSteadyState.ino"
+}

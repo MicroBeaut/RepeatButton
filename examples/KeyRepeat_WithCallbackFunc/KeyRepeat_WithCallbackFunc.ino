@@ -1,5 +1,5 @@
 /*
-  RepeatButton_KeyRepeat.ino
+  KeyRepeat_WithCallbackFunc.ino
   Created:  4-Mar-2023
   Author:   MicroBeaut
 */
@@ -22,19 +22,12 @@ void OnKeyPressed(ButtonEvents e); // Declare the OnKeyPressed Callback Function
 void setup() {
   Serial.begin(115200);
   button.buttonMode(buttonPin, INPUT_PULLUP);   // Set the button mode
-  button.repeatDelay(repeatDelay, repeatRate);  // Set the Hold delay
+  button.repeatDelay(repeatDelay, repeatRate);  // Set the Hold delay and Repeat Rate
   button.onKeyPressed(OnKeyPressed);            // Configure the callback function event on the key holding
-  pinMode(LED_BUILTIN, OUTPUT);                 // Set the LED_BUILTIN mode
-
 }
 
 void loop() {
   button.repeatButton();                        // Executing the Repeat button function
-  if (button.isRepeating()) {
-    digitalWrite(LED_BUILTIN, HIGH);            // Turned LED ON
-  } else {
-    digitalWrite(LED_BUILTIN, LOW);             // Turned LED OFF
-  }
 }
 
 void OnKeyPressed(ButtonEvents e) {
