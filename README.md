@@ -81,7 +81,7 @@ void setup() {
 
 void loop() {
   button.repeatButton();                      // Executing the Repeat button function
-  if (button.isKeyReleased()) {
+  if (button.isKeyReleased(true)) {           // Steady State Key Released -> False = Rising Edge, True = Seady State
     digitalWrite(LED_BUILTIN, HIGH);          // Turned LED ON
   } else {
     digitalWrite(LED_BUILTIN, LOW);           // Turned LED OFF
@@ -112,7 +112,7 @@ void setup() {
 
 void loop() {
   button.repeatButton();                      // Executing the Repeat button function
-  if (button.isKeyReleased()) {
+  if (button.isKeyReleased(true)) {           // Steady State Key Released -> False = Rising Edge, True = Seady State
     digitalWrite(LED_BUILTIN, HIGH);          // Turned LED ON
   } else {
     digitalWrite(LED_BUILTIN, LOW);           // Turned LED OFF
@@ -146,7 +146,7 @@ void setup() {
 
 void loop() {
   button.repeatButton();                      // Executing the Repeat button function
-  if (button.isKeyHolding()) {
+  if (button.isKeyHolding(true)) {            // Steady State Key Holding -> False = Rising Edge, True = Seady State
     digitalWrite(LED_BUILTIN, HIGH);          // Turned LED ON
   } else {
     digitalWrite(LED_BUILTIN, LOW);           // Turned LED OFF
@@ -183,7 +183,7 @@ void setup() {
 
 void loop() {
   button.repeatButton();                        // Executing the Repeat button function
-  if (button.isRepeating()) {
+  if (button.isRepeating()) {                   // Steady State Key Repeating -> False = Rising Edge, True = Seady State
     digitalWrite(LED_BUILTIN, HIGH);            // Turned LED ON
   } else {
     digitalWrite(LED_BUILTIN, LOW);             // Turned LED OFF
