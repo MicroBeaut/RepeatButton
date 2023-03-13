@@ -166,7 +166,7 @@ void OnKeyHolding(ButtonEvents e) {
 #define buttonPin 2                 // Define the button input pin.
 
 const uint16_t repeatDelay = 500;   // Set Delay 500 milliseconds
-const uint16_t repeatRate = 100;    // Set Repeat rate 200 milliseconds
+const uint16_t repeatRate = 200;    // Set Repeat rate 200 milliseconds
 
 RepeatButton button;                // Decalre the RepeatButton object
 
