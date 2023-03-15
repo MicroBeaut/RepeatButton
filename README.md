@@ -70,26 +70,26 @@ bool isRepeating();     // Determines whether the specified key is repeating
 
 RepeatButton button;                // Decalre the RepeatButton object
 
-void OnKeyReleased(ButtonEvents e); // Declare the OnKeyReleased Callback Function
+void OnKeyPressed(ButtonEvents e); // Declare the OnKeyReleased Callback Function
 
 void setup() {
   Serial.begin(115200);
   button.buttonMode(buttonPin, INPUT_PULLUP); // Set the button mode
-  button.onKeyReleased(OnKeyReleased);        // Configure the callback function event on the key released
+  button.onKeyPressed(OnKeyPressed);        // Configure the callback function event on the key pressed
   pinMode(LED_BUILTIN, OUTPUT);               // Set the LED_BUILTIN mode
 }
 
 void loop() {
   button.repeatButton();                      // Executing the Repeat button function
-  if (button.isKeyReleased(true)) {           // Steady State Key Released -> False = Rising Edge, True = Seady State
+  if (button.isKeyReleased(true)) {           // Steady State Key Pressed -> False = Rising Edge, True = Seady State
     digitalWrite(LED_BUILTIN, HIGH);          // Turned LED ON
   } else {
     digitalWrite(LED_BUILTIN, LOW);           // Turned LED OFF
   }
 }
 
-void OnKeyReleased(ButtonEvents e) {
-  Serial.println("Event on Key Released");    // Print message event on key Released
+void OnKeyPressed(ButtonEvents e) {
+  Serial.println("Event on Key Pressed");    // Print message event on key Pressed
 }
 ```
 
