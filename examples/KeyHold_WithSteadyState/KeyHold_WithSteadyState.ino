@@ -2,9 +2,7 @@
   KeyHold_WithSteadyState.ino
   Created:  4-Mar-2023
   Author:   MicroBeaut
-*/
 
-/*
   The KeyHold event occurs when holding a key.
 */
 
@@ -25,7 +23,7 @@ void setup() {
 
 void loop() {
   button.repeatButton();                      // Executing the Repeat button function
-  if (button.isKeyHolding(true)) {            // Steady State Hoding Key
+  if (button.isHold(true)) {                  // Steady State Hoding Key
     digitalWrite(LED_BUILTIN, HIGH);          // Turned LED ON
   } else {
     digitalWrite(LED_BUILTIN, LOW);           // Turned LED OFF

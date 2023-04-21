@@ -2,9 +2,7 @@
   KeyPress_WithRisingEdge.ino
   Created:  4-Mar-2023
   Author:   MicroBeaut
-*/
 
-/*
   The KeyPress event occurs when presses a key
 */
 
@@ -21,7 +19,7 @@ void setup() {
 
 void loop() {
   button.repeatButton();                      // Executing the Repeat button function
-  if (button.isKeyPressed(true)) {            // Steady State Pressed Key
+  if (button.isPressed(true)) {               // Steady State Pressed Key
     digitalWrite(LED_BUILTIN, HIGH);          // Turned LED ON
   } else {
     digitalWrite(LED_BUILTIN, LOW);           // Turned LED OFF

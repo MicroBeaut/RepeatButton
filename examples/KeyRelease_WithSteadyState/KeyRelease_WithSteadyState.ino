@@ -2,9 +2,7 @@
   KeyRelease_WithSteadyState.ino
   Created:  4-Mar-2023
   Author:   MicroBeaut
-*/
 
-/*
   The KeyRelease event occurs when released a key.
 */
 
@@ -22,7 +20,7 @@ void setup() {
 
 void loop() {
   button.repeatButton();                      // Executing the Repeat button function
-  if (button.isKeyReleased(true)) {           // Steady State Release Key
+  if (button.isReleased(true)) {              // Steady State Release Key
     digitalWrite(LED_BUILTIN, HIGH);          // Turned LED ON
   } else {
     digitalWrite(LED_BUILTIN, LOW);           // Turned LED OFF

@@ -2,9 +2,7 @@
   KeyHold_WithRisingEdge.ino
   Created:  8-Mar-2023
   Author:   MicroBeaut
-*/
 
-/*
   The KeyHold event occurs when holding a key.
 */
 
@@ -24,7 +22,7 @@ void setup() {
 
 void loop() {
   button.repeatButton();                        // Executing the Repeat button function
-  if (button.isKeyHolding()) {                  // Check Key Hold (Rissing Edge Detector) 
+  if (button.isHold()) {                        // Check Key Hold (Rissing Edge Detector) 
     Serial.println("Rising Edge Key Holding");  // Print message on rising edge key Holding
   }
 }

@@ -23,10 +23,10 @@ RepeatButton repeatButtonVariable;
 ### Button Events
 ```C
 enum ButtonEvents {
-  keyPress = 1,     // Occurs when a key is pressed
-  keyRelease = 2,   // Occurs when a key is released
-  keyHold = 3,      // Occurs when a key is hold
-  keyRepeat = 4     // Occurs when a key is pressed an hold
+  PRESS = 1,     // Occurs when a key is pressed
+  RELEASE = 2,   // Occurs when a key is released
+  HOLD = 3,      // Occurs when a key is hold
+  REPEAT = 4     // Occurs when a key is pressed an hold
 };
 ```
 
@@ -44,9 +44,7 @@ void repeatDelay(uint16_t repeatDelay /*mS*/, uint16_t repeatRate/*mS*/);
 
 ### Events
 ```C
-void onKeyPressed(KeyEventCallback keyPressedEvent);    // Occurs when a key is pressed and repeat
-void onKeyReleased(KeyEventCallback keyReleasedEvent);  // Occurs when a key is released
-void onKeyHolding(KeyEventCallback keyHoldingEvent);    // Occurs when a key is hold
+void buttonEvents(KeyEventCallback keyEventCallback);    // Occurs when a key is changed
 
 // typedef void (*KeyEventCallback) (ButtonEvents e);
 ```
@@ -66,16 +64,16 @@ bool isRepeating();     // Determines whether the specified key is repeating
 ```C
 #include "RepeatButton.h"
 
-#define buttonPin 2                 // Define the button input pin.
+#define buttonPin 2                     // Define the button input pin.
 
-RepeatButton button;                // Decalre the RepeatButton object
+RepeatButton button;                    // Decalre the RepeatButton object
 
-void OnKeyPressed(ButtonEvents e); // Declare the OnKeyReleased Callback Function
+void OnKeyStateChanged(ButtonEvents e); // Occurs when a key is changed
 
 void setup() {
   Serial.begin(115200);
   button.buttonMode(buttonPin, INPUT_PULLUP); // Set the button mode
-  button.onKeyPressed(OnKeyPressed);        // Configure the callback function event on the key pressed
+  button.buttonEvents(OnKeyStateChanged);     // Configure the callback function event on the key pressed
   pinMode(LED_BUILTIN, OUTPUT);               // Set the LED_BUILTIN mode
 }
 
@@ -88,8 +86,8 @@ void loop() {
   }
 }
 
-void OnKeyPressed(ButtonEvents e) {
-  Serial.println("Event on Key Pressed");    // Print message event on key Pressed
+void OnKeyStateChanged(ButtonEvents e) {
+  Serial.println("Event on Key Pressed");     // Print message event on key Pressed
 }
 ```
 
@@ -97,16 +95,16 @@ void OnKeyPressed(ButtonEvents e) {
 ```C
 #include "RepeatButton.h"
 
-#define buttonPin 2                 // Define the button input pin.
+#define buttonPin 2                     // Define the button input pin.
 
-RepeatButton button;                // Decalre the RepeatButton object
+RepeatButton button;                    // Decalre the RepeatButton object
 
-void OnKeyReleased(ButtonEvents e); // Declare the OnKeyReleased Callback Function
+void OnKeyStateChanged(ButtonEvents e); // Occurs when a key is changed
 
 void setup() {
   Serial.begin(115200);
   button.buttonMode(buttonPin, INPUT_PULLUP); // Set the button mode
-  button.onKeyReleased(OnKeyReleased);        // Configure the callback function event on the key released
+  button.buttonEvents(OnKeyStateChanged);     // Configure the callback function event on the key released
   pinMode(LED_BUILTIN, OUTPUT);               // Set the LED_BUILTIN mode
 }
 
@@ -119,7 +117,7 @@ void loop() {
   }
 }
 
-void OnKeyReleased(ButtonEvents e) {
+void OnKeyStateChanged(ButtonEvents e) {
   Serial.println("Event on Key Released");    // Print message event on key Released
 }
 ```
@@ -134,13 +132,13 @@ const uint16_t holdDelay = 3000;    // Set Hold Time 3000 milliseconds
 
 RepeatButton button;                // Decalre the RepeatButton object
 
-void OnKeyHolding(ButtonEvents e); // Declare the OnKeyHolding Callback Function
+void OnKeyStateChanged(ButtonEvents e);  // Occurs when a key is changed
 
 void setup() {
   Serial.begin(115200);
   button.buttonMode(buttonPin, INPUT_PULLUP); // Set the button mode
   button.holdDelay(holdDelay);                // Set the Hold delay
-  button.onKeyHolding(OnKeyHolding);          // Configure the callback function event on the key holding
+  button.buttonEvents(OnKeyStateChanged);     // Configure the callback function event on the key holding
   pinMode(LED_BUILTIN, OUTPUT);               // Set the LED_BUILTIN mode
 }
 
@@ -153,8 +151,8 @@ void loop() {
   }
 }
 
-void OnKeyHolding(ButtonEvents e) {
-  Serial.println("Event on Key Hold");    // Print message event on key Hold
+void OnKeyStateChanged(ButtonEvents e) {
+  Serial.println("Event on Key Hold");        // Print message event on key Hold
 }
 ```
 
@@ -170,13 +168,13 @@ const uint16_t repeatRate = 200;    // Set Repeat rate 200 milliseconds
 
 RepeatButton button;                // Decalre the RepeatButton object
 
-void OnKeyPressed(ButtonEvents e); // Declare the OnKeyPressed Callback Function for the repeating option.
+void OnKeyStateChanged(ButtonEvents e);  // Occurs when a key is changed
 
 void setup() {
   Serial.begin(115200);
   button.buttonMode(buttonPin, INPUT_PULLUP);   // Set the button mode
   button.repeatDelay(repeatDelay, repeatRate);  // Set the Hold delay
-  button.onKeyPressed(OnKeyPressed);            // Configure the callback function event on the key holding
+  button.buttonEvents(OnKeyStateChanged);       // Configure the callback function event on the key holding
   pinMode(LED_BUILTIN, OUTPUT);                 // Set the LED_BUILTIN mode
 
 }
@@ -190,12 +188,12 @@ void loop() {
   }
 }
 
-void OnKeyPressed(ButtonEvents e) {
+void OnKeyStateChanged(ButtonEvents e) {
   switch (e) {
-    case keyPress:
+    case PRESS:
       Serial.println("Event on Key Pressed");   // Print message event on key pressed
       break;
-    case keyRepeat:
+    case REPEAT
       Serial.println("Event on Key Repeat");    // Print message event on key repeat                          
       break;
   }

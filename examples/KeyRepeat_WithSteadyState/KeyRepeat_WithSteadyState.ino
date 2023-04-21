@@ -2,9 +2,7 @@
   KeyRepeat_WithSteadyState.ino
   Created:  4-Mar-2023
   Author:   MicroBeaut
-*/
 
-/*
   The Key Repeat event occurs when repeating a key.
 */
 
@@ -25,7 +23,7 @@ void setup() {
 
 void loop() {
   button.repeatButton();                      // Executing the Repeat button function
-  if (button.isRepeating(true)) {             // Steady State RepeatKey
+  if (button.isRepeat(true)) {                // Steady State RepeatKey
     digitalWrite(LED_BUILTIN, HIGH);          // Turned LED ON
   } else {
     digitalWrite(LED_BUILTIN, LOW);           // Turned LED OFF

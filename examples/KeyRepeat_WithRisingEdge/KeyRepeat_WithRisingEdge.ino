@@ -2,9 +2,7 @@
   KeyRepeat_WithRisingEdge.ino
   Created:  8-Mar-2023
   Author:   MicroBeaut
-*/
 
-/*
   The Key Repeat event occurs when repeating a key.
 */
 
@@ -25,7 +23,7 @@ void setup() {
 
 void loop() {
   button.repeatButton();                        // Executing the Repeat button function
-  if (button.isRepeating()) {                   // Check Key repeat
+  if (button.isRepeat()) {                      // Check Key repeat
     Serial.println("Rising Edge Key Repeat");   // Print message on rising edge key repeat
   }
 }

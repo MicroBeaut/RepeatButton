@@ -2,9 +2,7 @@
   KeyRelease_WithRisingEdge.ino
   Created:  8-Mar-2023
   Author:   MicroBeaut
-*/
 
-/*
   The KeyRelease event occurs when released a key.
 */
 
@@ -21,7 +19,7 @@ void setup() {
 
 void loop() {
   button.repeatButton();                        // Executing the Repeat button function
-  if (button.isKeyReleased()) {                 // Check Key released
+  if (button.isReleased()) {                    // Check Key released
     Serial.println("Rising Edge Key Released"); // Print message on rising edge key Release
   }
 }

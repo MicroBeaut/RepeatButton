@@ -15,19 +15,17 @@ debounceDelay   KEYWORD2
 repeatDelay     KEYWORD2
 holdDelay       KEYWORD2
 repeatButton    KEYWORD2
-onKeyPressed    KEYWORD2
-onKeyReleased   KEYWORD2
-onKeyHolding    KEYWORD2
-isKeyPressed    KEYWORD2
-isKeyReleased   KEYWORD2
-isKeyHolding    KEYWORD2
-isRepeating     KEYWORD2
+buttonEvents    KEYWORD2
+isPressed       KEYWORD2
+isReleased      KEYWORD2
+isHold          KEYWORD2
+isRepeat        KEYWORD2
 
 
 #######################################
 # Constants (LITERAL1)
 #######################################
-keyPress        LITERAL1
-keyRelease      LITERAL1
-keyHold         LITERAL1
-keyRepeat       LITERAL1
+PRESS           LITERAL1
+RELEASE         LITERAL1
+HOLD            LITERAL1
+REPEAT          LITERAL1

@@ -2,9 +2,7 @@
   RepeatButton.cpp
   Created:  4-Mar-2023
   Author:   MicroBeaut
-*/
 
-/*
   MIT License
   Copyright (c) 2023 MicroBeaut
 */
@@ -15,10 +13,10 @@
 #include "Arduino.h"
 
 enum ButtonEvents {
-  keyPress = 1,     // Occurs when a key is pressed
-  keyRelease = 2,   // Occurs when a key is released
-  keyHold = 3,      // Occurs when a key is hold
-  keyRepeat = 4     // Occurs when a key is pressed an hold
+  PRESS = 1,     // Occurs when a key is pressed
+  RELEASE = 2,   // Occurs when a key is released
+  HOLD = 3,      // Occurs when a key is hold
+  REPEAT = 4     // Occurs when a key is pressed an hold
 };
 
 class RepeatButton {
@@ -53,9 +51,7 @@ class RepeatButton {
     unsigned long _startTime = 0;
     unsigned long _startRepeatTime = 0;
 
-    KeyEventCallback _onKeyPressed = nullptr;
-    KeyEventCallback _onKeyReleased = nullptr;
-    KeyEventCallback _onKeyHoldingEvent = nullptr;
+    KeyEventCallback _buttonEvents = nullptr;
 
     void internalDebounce();
     void internalOnPressed();
@@ -63,6 +59,8 @@ class RepeatButton {
     void internalOnHolding();
     void internalOnRepeatOn();
     void internalOnRepeating();
+    void internalButtonEvents(ButtonEvents buttonEvent);
+    bool internalEventTimer(bool input, unsigned long &startTime, unsigned long delayTime, ButtonEvents buttonEvent, bool repeat);
   public:
     RepeatButton();
     void buttonMode(uint8_t pin, uint8_t mode);
@@ -70,13 +68,11 @@ class RepeatButton {
     void repeatDelay(uint16_t repeatDelay /*mS*/, uint16_t repeatRate/*mS*/);
     void holdDelay(uint16_t holdDelay /*mS*/);
     bool repeatButton();
-    void onKeyPressed(KeyEventCallback keyPressedEvent = nullptr);
-    void onKeyReleased(KeyEventCallback keyReleasedEvent = nullptr);
-    void onKeyHolding(KeyEventCallback keyHoldingEvent = nullptr);
-    bool isKeyPressed(bool SteadyState = 0);
-    bool isKeyReleased(bool SteadyState = 0);
-    bool isKeyHolding(bool SteadyState = 0);
-    bool isRepeating(bool SteadyState = 0);
+    void buttonEvents(KeyEventCallback keyEventCallback);
+    bool isPressed(bool SteadyState = 0);
+    bool isReleased(bool SteadyState = 0);
+    bool isHold(bool SteadyState = 0);
+    bool isRepeat(bool SteadyState = 0);
 };
 
 #endif // REPEATBUTTON_H

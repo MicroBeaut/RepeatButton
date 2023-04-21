@@ -2,9 +2,7 @@
   RepeatButton.h
   Created:  4-Mar-2023
   Author:   MicroBeaut
-*/
 
-/*
   MIT License
   Copyright (c) 2023 MicroBeaut
 */
@@ -85,94 +83,73 @@ void RepeatButton::internalDebounce() {
 void RepeatButton::internalOnPressed() {
   _pressed = true;
   _released = false;
-  if (_onKeyPressed) {
-    _onKeyPressed(keyPress);
-  }
+  this->internalButtonEvents(PRESS);
 }
 
 void RepeatButton::internalOnReleased() {
   _pressed = false;
   _released = true;
   _repeating = false;
-  if (_onKeyReleased) {
-    _onKeyReleased(keyRelease);
-  }
+  this->internalButtonEvents(RELEASE);
 }
 
 void RepeatButton::internalOnHolding() {
-  if (_holding) return;
-  if (_holdDelay <= 0UL) return;
-
-  unsigned long elapsedTime = micros() - _startTime;
-  if (elapsedTime >= _holdDelay) {
-    _holding = true;
-    if (_onKeyHoldingEvent) {
-      _onKeyHoldingEvent(keyRelease);
-    }
-  }
+  _holding = this->internalEventTimer(_holding, _startTime, _holdDelay, HOLD, false);
 }
 
 void RepeatButton::internalOnRepeatOn() {
-  if (_repeating) return;
-  if (_repeatDelay <= 0UL) return;
-
-  unsigned long elapsedTime = micros() - _startRepeatTime;
-  if (elapsedTime >= _repeatDelay) {
-    _startRepeatTime = micros();
-    _repeating = true;
-    if (_onKeyPressed) {
-      _onKeyPressed(keyRepeat);
-    }
-  }
+  _repeating = this->internalEventTimer(_repeating, _startRepeatTime, _repeatDelay, REPEAT, true);
 }
 
 void RepeatButton::internalOnRepeating() {
-  if (!_repeating) return;
-  if (_repeatRate <= 0UL) return;
+  this->internalEventTimer(!_repeating, _startRepeatTime, _repeatRate, REPEAT, true);
+}
 
-  unsigned long elapsedTime = micros() - _startRepeatTime;
-  if (elapsedTime >= _repeatRate) {
-    _startRepeatTime = micros();
-    if (_onKeyPressed) {
-      _onKeyPressed(keyRepeat);
-    }
+void RepeatButton::internalButtonEvents(ButtonEvents buttonEvent) {
+  if (_buttonEvents) {
+    _buttonEvents(buttonEvent);
   }
 }
 
-void RepeatButton::onKeyPressed(KeyEventCallback keyPressedEvent) {
-  _onKeyPressed = keyPressedEvent;
+bool RepeatButton::internalEventTimer(bool input, unsigned long &startTime, unsigned long delayTime, ButtonEvents buttonEvent, bool repeat) {
+  if (input) return input;
+  if (delayTime <= 0UL) return input;
+
+  unsigned long elapsedTime = micros() - startTime;
+  if (elapsedTime >= delayTime) {
+    if (repeat) startTime = micros();
+    this->internalButtonEvents(buttonEvent);
+    return true;
+  }
+  return false;
 }
 
-void RepeatButton::onKeyReleased(KeyEventCallback keyReleasedEvent) {
-  _onKeyReleased = keyReleasedEvent;
+void RepeatButton::buttonEvents(KeyEventCallback keyEventCallback) {
+  _buttonEvents = keyEventCallback;
 }
 
-void RepeatButton::onKeyHolding(KeyEventCallback keyHoldEvent) {
-  _onKeyHoldingEvent = keyHoldEvent;
-}
-
-bool RepeatButton::isKeyPressed(bool steadyState) {
+bool RepeatButton::isPressed(bool steadyState) {
   if (steadyState) return _pressed;
   _dummyState = _prevPressed;
   _prevPressed = _pressed;
   return _pressed & !_dummyState;
 }
 
-bool RepeatButton::isKeyReleased(bool steadyState) {
+bool RepeatButton::isReleased(bool steadyState) {
   if (steadyState) return _released;
   _dummyState = _prevReleased;
   _prevReleased = _released;
   return _released & !_dummyState;
 }
 
-bool RepeatButton::isKeyHolding(bool steadyState)  {
+bool RepeatButton::isHold(bool steadyState)  {
   if (steadyState) return _holding;
   _dummyState = _prevHolding;
   _prevHolding = _holding;
   return _holding & !_dummyState;
 }
 
-bool RepeatButton::isRepeating(bool steadyState) {
+bool RepeatButton::isRepeat(bool steadyState) {
   if (steadyState) return _repeating;
   _dummyState = _prevRepeating;
   _prevRepeating = _repeating;
